@@ -6,15 +6,15 @@ M0PWM0 uses PB6, it has some key set up for PWM as below
 
         PWM0_0_CTL_R &= ~PWM_0_CTL_MODE;          // re-loading down-counting mode
     
-    `PWM0_0_CTL_R` is M0PWM0 Conttrol Register, `PWM0_0_CTL_R` is declared in [tm4c123gh6pm.h](../../tm4c123gh6pm.h) line 742:
+    `PWM0_0_CTL_R` is M0PWM0 Control Register, `PWM0_0_CTL_R` is declared in [tm4c123gh6pm.h line 742](../../tm4c123gh6pm.h#L742):
 
         #define PWM0_0_CTL_R            (*((volatile uint32_t *)0x40028040))
     
-    We use `PWM_0_CTL_MODE` to modify its `MODE` bit, it is defined in line 3457 in [tm4c123gh6pm.h](../../tm4c123gh6pm.h).
+    We use `PWM_0_CTL_MODE` to modify its `MODE` bit, it is defined in [tm4c123gh6pm.h line 3457](../../tm4c123gh6pm.h#L3457).
     
         #define PWM_0_CTL_MODE          0x00000002  // Counter Mode
     
-    The complete bit field definitions for PWM0_0_CTL_R are between line 3430 to line 3458 in [tm4c123gh6pm.h](../../tm4c123gh6pm.h).
+    The complete bit field definitions for PWM0_0_CTL_R are in [tm4c123gh6pm.h between line 3430 to line 3458](../../tm4c123gh6pm.h#L3430-L3458).
 
 - PWM0_0_GENA_R:
 
