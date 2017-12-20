@@ -23,30 +23,31 @@
  * Discription: Initialize M0PWM1/PB7.
  */
 void M0PWM1_Init(uint16_t period, uint16_t duty){
-    SYSCTL_RCGCPWM_R |= 0x01;                 // activate PWM0
-    SYSCTL_RCGCGPIO_R |= 0x02;                // activate Port B
-    while((SYSCTL_PRGPIO_R & 0x02) == 0){};   // allow time to finish activating
+    /* PWM Module and Port Set Up */
+    SYSCTL_RCGCPWM_R |= SYSCTL_RCGCPWM_R0;                 // activate PWM Module 0
+    SYSCTL_RCGCGPIO_R |= SYSCTL_RCGCGPIO_R1;               // activate Port B
+    while((SYSCTL_PRGPIO_R & SYSCTL_RCGCGPIO_R1) == 0){};  // allow time to finish activating
     
     /* Port B Set Up */
-    GPIO_PORTB_AFSEL_R |= 0x80;               // enable alt funct on PB7
-    GPIO_PORTB_PCTL_R &= ~0xF0000000;         // configure PB7 as M0PWM1
-    GPIO_PORTB_PCTL_R |= 0x40000000;          // ?
-    GPIO_PORTB_AMSEL_R &= ~0x80;              // disable analog functionality on PB7
-    GPIO_PORTB_DEN_R |= 0x80;                 // enable digital I/O on PB7
+    GPIO_PORTB_AFSEL_R |= 0x80;                            // enable alt funct on PB7
+    GPIO_PORTB_PCTL_R &= ~GPIO_PCTL_PB7_M;                 // clear bit fields for PB7
+    GPIO_PORTB_PCTL_R |= GPIO_PCTL_PB7_M0PWM1;             // configure PB7 as M0PWM1
+    GPIO_PORTB_AMSEL_R &= ~0x80;                           // disable analog functionality on PB7
+    GPIO_PORTB_DEN_R |= 0x80;                              // enable digital I/O on PB7
     
     /* System Control Run-Mode Clock Configuration (RCC) Set Up */
-    SYSCTL_RCC_R |= SYSCTL_RCC_USEPWMDIV;     // use PWM divider
-    SYSCTL_RCC_R &= ~SYSCTL_RCC_PWMDIV_M;     // clear PWM divider field
-    SYSCTL_RCC_R += SYSCTL_RCC_PWMDIV_2;      // configure for /2 divider
+    SYSCTL_RCC_R |= SYSCTL_RCC_USEPWMDIV;                  // use PWM divider
+    SYSCTL_RCC_R &= ~SYSCTL_RCC_PWMDIV_M;                  // clear PWM divider field
+    SYSCTL_RCC_R += SYSCTL_RCC_PWMDIV_2;                   // configure for /2 divider
     
     /* M0PWM1 Set Up */
-    PWM0_0_CTL_R &= ~PWM_0_CTL_MODE;          // re-loading down-counting mode
-    PWM0_0_GENB_R |= PWM_0_GENB_ACTCMPBD_ONE; // PB7 goes high on CMPB down
-    PWM0_0_GENB_R |= PWM_0_GENB_ACTLOAD_ZERO; // PB7 goes low on LOAD
-    PWM0_0_LOAD_R = period - 1;               // cycles needed to count down to 0
-    PWM0_0_CMPB_R = duty - 1;                 // count value when output rises
-    PWM0_0_CTL_R |= PWM_0_CTL_ENABLE;         // start PWM0
-    PWM0_ENABLE_R |= PWM_ENABLE_PWM1EN;       // enable M0PWM1/PB7
+    PWM0_0_CTL_R &= ~PWM_0_CTL_MODE;                       // re-loading down-counting mode
+    PWM0_0_GENB_R |= PWM_0_GENB_ACTLOAD_ZERO;              // PB7 goes low on LOAD
+    PWM0_0_GENB_R |= PWM_0_GENB_ACTCMPBD_ONE;              // PB7 goes high on CMPB down
+    PWM0_0_LOAD_R = period - 1;                            // cycles needed to count down to 0
+    PWM0_0_CMPB_R = duty - 1;                              // count value when output rises
+    PWM0_0_CTL_R |= PWM_0_CTL_ENABLE;                      // enable M0PWM1
+    PWM0_ENABLE_R |= PWM_ENABLE_PWM1EN;                    // enable M0PWM1 output to PB7
 }
 
 /*
@@ -56,5 +57,5 @@ void M0PWM1_Init(uint16_t period, uint16_t duty){
  * Discription: Set duty cycle of the PWM signal to a new value.
  */
 void M0PWM1_Set_Duty(uint16_t duty){
-    PWM0_0_CMPB_R = duty - 1;                 // count value when output rises
+    PWM0_0_CMPB_R = duty - 1;                              // count value when output rises
 }
