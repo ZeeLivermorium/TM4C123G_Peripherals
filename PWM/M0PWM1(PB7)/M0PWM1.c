@@ -16,7 +16,7 @@
 #include "tm4c123gh6pm.h"   // put tm4c123gh6pm.h in your project folder or change this line
 
 /*
- * Function: void M0PWM0_Init(uint16_t period, uint16_t duty)
+ * Function: void M0PWM1_Init(uint16_t period, uint16_t duty)
  * Parameters:
  *   - period: period of the PWM signal
  *   - duty: duty cycle of the PWM signal
@@ -26,16 +26,19 @@ void M0PWM1_Init(uint16_t period, uint16_t duty){
     SYSCTL_RCGCPWM_R |= 0x01;                 // activate PWM0
     SYSCTL_RCGCGPIO_R |= 0x02;                // activate Port B
     while((SYSCTL_PRGPIO_R & 0x02) == 0){};   // allow time to finish activating
+    
     /* Port B Set Up */
     GPIO_PORTB_AFSEL_R |= 0x80;               // enable alt funct on PB7
     GPIO_PORTB_PCTL_R &= ~0xF0000000;         // configure PB7 as M0PWM1
     GPIO_PORTB_PCTL_R |= 0x40000000;          // ?
     GPIO_PORTB_AMSEL_R &= ~0x80;              // disable analog functionality on PB7
     GPIO_PORTB_DEN_R |= 0x80;                 // enable digital I/O on PB7
+    
     /* System Control Run-Mode Clock Configuration (RCC) Set Up */
     SYSCTL_RCC_R |= SYSCTL_RCC_USEPWMDIV;     // use PWM divider
     SYSCTL_RCC_R &= ~SYSCTL_RCC_PWMDIV_M;     // clear PWM divider field
     SYSCTL_RCC_R += SYSCTL_RCC_PWMDIV_2;      // configure for /2 divider
+    
     /* M0PWM1 Set Up */
     PWM0_0_CTL_R &= ~PWM_0_CTL_MODE;          // re-loading down-counting mode
     PWM0_0_GENB_R |= PWM_0_GENB_ACTCMPBD_ONE; // PB7 goes high on CMPB down

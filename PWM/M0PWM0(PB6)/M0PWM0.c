@@ -26,16 +26,19 @@ void M0PWM0_Init(uint16_t period, uint16_t duty){
     SYSCTL_RCGCPWM_R |= 0x01;                 // activate PWM0
     SYSCTL_RCGCGPIO_R |= 0x02;                // activate Port B
     while((SYSCTL_PRGPIO_R & 0x02) == 0){};   // allow time to finish activating
+    
     /* Port B Set Up */
     GPIO_PORTB_AFSEL_R |= 0x40;               // enable alt funct on PB6
     GPIO_PORTB_PCTL_R &= ~0x0F000000;         // configure PB6 as PWM0
     GPIO_PORTB_PCTL_R |= 0x04000000;          // ?
     GPIO_PORTB_AMSEL_R &= ~0x40;              // disable analog functionality on PB6
     GPIO_PORTB_DEN_R |= 0x40;                 // enable digital I/O on PB6
+    
     /* System Control Run-Mode Clock Configuration (RCC) Set Up */
     SYSCTL_RCC_R |= SYSCTL_RCC_USEPWMDIV;     // use PWM divider
     SYSCTL_RCC_R &= ~SYSCTL_RCC_PWMDIV_M;     // clear PWM divider field
     SYSCTL_RCC_R += SYSCTL_RCC_PWMDIV_2;      // configure for /2 divider
+    
     /* M0PWM0 Set Up */
     PWM0_0_CTL_R &= ~PWM_0_CTL_MODE;          // re-loading down-counting mode
     PWM0_0_GENA_R |= PWM_0_GENA_ACTLOAD_ZERO; // PB6 goes low on LOAD
