@@ -47,7 +47,7 @@ void M0PWM1_Init(uint16_t period, uint16_t duty) {
     PWM0_0_LOAD_R = period - 1;                            // cycles needed to count down to 0
     PWM0_0_CMPB_R = duty - 1;                              // count value when output rises
     PWM0_0_CTL_R |= PWM_0_CTL_ENABLE;                      // enable Generator 0 for PWM Module 0
-    PWM0_ENABLE_R |= PWM_ENABLE_PWM1EN;                    // enable M0PWM1 output to PB7
+    PWM0_ENABLE_R |= PWM_ENABLE_PWM1EN;                    // enable M0PWM1 output
 }
 
 /*
