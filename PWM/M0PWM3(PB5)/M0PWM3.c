@@ -29,11 +29,11 @@ void M0PWM3_Init(uint16_t period, uint16_t duty){
     while((SYSCTL_PRGPIO_R & SYSCTL_RCGCGPIO_R1) == 0){};  // allow time to finish activating
     
     /* Port B Set Up */
-    GPIO_PORTB_AFSEL_R |= 0x10;                            // enable alt funct on PB5
+    GPIO_PORTB_AFSEL_R |= 0x20;                            // enable alt funct on PB5
     GPIO_PORTB_PCTL_R &= ~GPIO_PCTL_PB5_M;                 // clear bit fields for PB5
     GPIO_PORTB_PCTL_R |= GPIO_PCTL_PB5_M0PWM3;             // configure PB5 as M0PWM3
-    GPIO_PORTB_AMSEL_R &= ~0x10;                           // disable analog functionality on PB5
-    GPIO_PORTB_DEN_R |= 0x10;                              // enable digital I/O on PB5
+    GPIO_PORTB_AMSEL_R &= ~0x20;                           // disable analog functionality on PB5
+    GPIO_PORTB_DEN_R |= 0x20;                              // enable digital I/O on PB5
     
     /* System Control Run-Mode Clock Configuration (RCC) Set Up */
     SYSCTL_RCC_R |= SYSCTL_RCC_USEPWMDIV;                  // use PWM divider
@@ -46,8 +46,8 @@ void M0PWM3_Init(uint16_t period, uint16_t duty){
     PWM0_1_GENB_R |= PWM_1_GENB_ACTCMPBD_ONE;              // PB5 goes high on CMPB down
     PWM0_1_LOAD_R = period - 1;                            // cycles needed to count down to 0
     PWM0_1_CMPB_R = duty - 1;                              // count value when output rises
-    PWM0_1_CTL_R |= PWM_1_CTL_ENABLE;                      // enable M0PWM3
-    PWM0_ENABLE_R |= PWM_ENABLE_PWM2EN;                    // enable M0PWM3 output to PB5
+    PWM0_1_CTL_R |= PWM_1_CTL_ENABLE;                      // enable Generator 1 for PWM Module 0
+    PWM0_ENABLE_R |= PWM_ENABLE_PWM3EN;                    // enable M0PWM3 output to PB5
 }
 
 /*

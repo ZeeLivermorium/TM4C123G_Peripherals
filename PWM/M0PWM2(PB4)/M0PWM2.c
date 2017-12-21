@@ -46,7 +46,7 @@ void M0PWM2_Init(uint16_t period, uint16_t duty){
     PWM0_1_GENA_R |= PWM_1_GENA_ACTCMPAD_ONE;              // PB4 goes high on CMPA down
     PWM0_1_LOAD_R = period - 1;                            // cycles needed to count down to 0
     PWM0_1_CMPA_R = duty - 1;                              // count value when output rises
-    PWM0_1_CTL_R |= PWM_1_CTL_ENABLE;                      // enable M0PWM2
+    PWM0_1_CTL_R |= PWM_1_CTL_ENABLE;                      // enable Generator 1 for PWM Module 0
     PWM0_ENABLE_R |= PWM_ENABLE_PWM2EN;                    // enable M0PWM2 output to PB4
 }
 
