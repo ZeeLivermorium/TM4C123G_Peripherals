@@ -1,10 +1,12 @@
 # Pulse Width Modulation
 
-** NOTE **: this document contains direct text from [Tiva™ C Series TM4C123GH6PM Microcontroller Data Sheet](http://www.ti.com/lit/ds/symlink/tm4c123gh6pm.pdf), I include the source of text for each section, if you want to learn more of the original text from Texas Instruments, please visit the data sheet, Tiva™ C Series TM4C123GH6PM Microcontroller Data Sheet would be called as TM4C123GH6PM Data Sheet below.
+**NOTE**: this document contains direct text from [Tiva™ C Series TM4C123GH6PM Microcontroller Data Sheet](http://www.ti.com/lit/ds/symlink/tm4c123gh6pm.pdf), I include the source of text for each section, if you want to learn more of the original text from Texas Instruments, please visit the data sheet, Tiva™ C Series TM4C123GH6PM Microcontroller Data Sheet would be called as TM4C123GH6PM Data Sheet below.
 
 ## Introduction([TM4C123GH6PM Data Sheet](http://www.ti.com/lit/ds/symlink/tm4c123gh6pm.pdf), page 1230):
 Pulse width modulation (PWM) is a powerful technique for digitally encoding analog signal levels. High-resolution counters are used to generate a square wave, and the duty cycle of the square wave is modulated to encode an analog signal. Typical applications include switching power supplies and motor control.
+
 The TM4C123GH6PM microcontroller contains **two PWM modules**, each with **four PWM generator blocks** and a control block, for a total of **16 PWM outputs**. The control block determines the polarity of the PWM signals, and which signals are passed through to the pins.
+
 Each PWM generator block produces two PWM signals that share the same timer and frequency and can either be programmed with independent actions or as a single pair of complementary signals with dead-band delays inserted. The output signals, pwmA' and pwmB', of the PWM generation blocks are managed by the output control block before being passed to the device pins as **MnPWM0** and **MnPWM1** or **MnPWM2** and **MnPWM3**, and so on.
 
 ## PWM Generator Block Features([TM4C123GH6PM Data Sheet](http://www.ti.com/lit/ds/symlink/tm4c123gh6pm.pdf), page 1230):
