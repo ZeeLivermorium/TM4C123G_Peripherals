@@ -1,4 +1,4 @@
-/*
+/*
  * M0PWM1.c
  * Use M0PWM1/PB7 to generate pulse-width modulated outputs.
  * ----------

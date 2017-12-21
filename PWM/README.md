@@ -51,6 +51,11 @@ to the motor being controlled, for a total of two inputs.
 
 
 
+
+
+
+
+
 Some key set up for PWM as below:
 
 PWM0_0_CTL_R &= ~PWM_0_CTL_MODE;          // re-loading down-counting mode
