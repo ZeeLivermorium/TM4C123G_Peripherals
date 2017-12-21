@@ -22,11 +22,11 @@
  *   - duty: duty cycle of the PWM signal
  * Discription: Initialize M0PWM1/PB7.
  */
-void M0PWM1_Init(uint16_t period, uint16_t duty){
+void M0PWM1_Init(uint16_t period, uint16_t duty) {
     /* PWM Module and Port Set Up */
     SYSCTL_RCGCPWM_R |= SYSCTL_RCGCPWM_R0;                 // activate PWM Module 0
     SYSCTL_RCGCGPIO_R |= SYSCTL_RCGCGPIO_R1;               // activate Port B
-    while((SYSCTL_PRGPIO_R & SYSCTL_RCGCGPIO_R1) == 0){};  // allow time to finish activating
+    while((SYSCTL_PRGPIO_R & SYSCTL_PRGPIO_R1) == 0){};    // allow time to finish activating
     
     /* Port B Set Up */
     GPIO_PORTB_AFSEL_R |= 0x80;                            // enable alt funct on PB7
