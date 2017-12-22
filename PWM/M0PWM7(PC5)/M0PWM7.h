@@ -11,9 +11,6 @@
  * Dec 21, 2017
  */
 
-#include <stdint.h>
-#include "tm4c123gh6pm.h"   // put tm4c123gh6pm.h in your project folder or change this line
-
 /*
  * Function: void M0PWM7_Init(uint16_t period, uint16_t duty)
  * Parameters:

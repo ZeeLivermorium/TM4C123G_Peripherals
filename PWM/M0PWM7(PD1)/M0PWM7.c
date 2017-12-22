@@ -25,8 +25,8 @@
 void M0PWM7_Init(uint16_t period, uint16_t duty){
     /* PWM Module and Port Set Up */
     SYSCTL_RCGCPWM_R |= SYSCTL_RCGCPWM_R0;                 // activate PWM Module 0
-    SYSCTL_RCGCGPIO_R |= SYSCTL_RCGCGPIO_R2;               // activate Port D
-    while((SYSCTL_PRGPIO_R & SYSCTL_PRGPIO_R2) == 0){};    // allow time to finish activating
+    SYSCTL_RCGCGPIO_R |= SYSCTL_RCGCGPIO_R3;               // activate Port D
+    while((SYSCTL_PRGPIO_R & SYSCTL_PRGPIO_R3) == 0){};    // allow time to finish activating
     
     /* Port D Set Up */
     GPIO_PORTD_AFSEL_R |= 0x02;                            // enable alt funct on PD1

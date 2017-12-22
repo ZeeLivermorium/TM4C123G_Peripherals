@@ -28,7 +28,7 @@ void M0PWM5_Init(uint16_t period, uint16_t duty){
     SYSCTL_RCGCGPIO_R |= SYSCTL_RCGCGPIO_R4;               // activate Port E
     while((SYSCTL_PRGPIO_R & SYSCTL_PRGPIO_R4) == 0){};    // allow time to finish activating
     
-    /* Port B Set Up */
+    /* Port E Set Up */
     GPIO_PORTE_AFSEL_R |= 0x20;                            // enable alt funct on PE5
     GPIO_PORTE_PCTL_R &= ~GPIO_PCTL_PE5_M;                 // clear bit fields for PE5
     GPIO_PORTE_PCTL_R |= GPIO_PCTL_PE5_M0PWM5;             // configure PE5 as M0PWM5
