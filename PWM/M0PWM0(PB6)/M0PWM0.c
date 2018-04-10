@@ -2,9 +2,9 @@
  * M0PWM0.c
  * Use M0PWM0/PB6 to generate pulse-width modulated outputs.
  * ----------
- * Inspired by the PWM example in ValvanoWare by Dr. Jonathan Valvano
+ * Inspired by the PWM example in ValvanoWareTM4C123 by Dr. Jonathan Valvano
  * as well as his book Embedded Systems: Real-Time Interfacing to Arm Cortex-M Microcontrollers
- * You can find VavanoWare at http://users.ece.utexas.edu/~valvano/arm/downloadmsp432.html
+ * You can find ValvanoWareTM4C123 at http://edx-org-utaustinx.s3.amazonaws.com/UT601x/ValvanoWareTM4C123.zip?dl=1
  * You can find his book at https://www.amazon.com/gp/product/1463590156/ref=oh_aui_detailpage_o05_s00?ie=UTF8&psc=1
  * You can find more of his work at http://users.ece.utexas.edu/~valvano/
  * ----------

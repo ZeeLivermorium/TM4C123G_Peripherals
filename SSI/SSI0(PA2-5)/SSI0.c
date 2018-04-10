@@ -55,12 +55,12 @@ void SSI0_Init(void) {
 
 
 uint16_t SSI0_Read(void) {
-    
-    return SSI0_DR_R;
+    while((SSI0_SR_R&SSI_SR_TNF) == 0) {};                 // wait until transmit FIFO not full
+    return SSI0_DR_R;                                      // read and return
 }
 
 void SSI0_Write(uint16_t data) {
-    while((SSI0_SR_R&SSI_SR_TNF)==0){};                    // wait until transmit FIFO not full
+    while((SSI0_SR_R&SSI_SR_TNF) == 0) {};                 // wait until transmit FIFO not full
     SSI0_DR_R = data;                                      // write data
 }
 
