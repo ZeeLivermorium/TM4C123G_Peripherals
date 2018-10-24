@@ -1,4 +1,4 @@
-/*
+/*!
  * SSI.h
  * ----------
  * Inspired by examples in ValvanoWareTM4C123 by Dr. Jonathan Valvano
@@ -7,120 +7,34 @@
  * You can find his book at https://www.amazon.com/gp/product/1463590156/ref=oh_aui_detailpage_o05_s00?ie=UTF8&psc=1
  * You can find more of his work at http://users.ece.utexas.edu/~valvano/
  * ----------
- * Zee Livermorium
- * Apr 14, 2018
+ * @author Zee Livermorium
+ * @date Apr 14, 2018
  */
 
-/****************************************************
- *                                                  *
- *             Setting Parameter Types              *
- *                                                  *
- ****************************************************/
+#include <stdint.h>
 
-typedef enum {
-    Regular, Bit_Banging
-} SSI_SS_Mode;
-
-typedef enum {
-    Master, Slave
-} SSI_MS_Mode;
-
-typedef enum {
-    MOTO,     // Freescale SPI Frame Format
-    TI,       // Synchronous Serial Frame Format
-    NMW       // MICROWIRE Frame Format
-} SSI_Frame_Select;
-
-typedef enum {
-    LSB, MSB
-} Bit_Order;
-
-/****************************************************
- *                                                  *
- *                  SSI Functions                   *
- *                                                  *
- ****************************************************/
-
-
-
-
-///**
-// * SSI1_F_Init
-// * ----------
-// * @brief initialize SSI1 on Port F with corresponding setting parameters.
-// */
-//void SSI1_F_Init (
-//                  SSI_SS_Mode SSI_SS_mode,      // SS is trigered regularly or by bit banging (GPIO)
-//                  SSI_MS_Mode SSI_ms_mode,      // Master/Slave mode
-//                  uint8_t CPSDVSR,              // must be an even number from 2 to 254
-//                  uint16_t SCR,                 // SSI Serial Clock Rate, a value from 0 to 255
-//                  uint8_t SSI_clk_mode,         // SSI Clock Mode, from 0 to 3
-//                  SSI_Frame_Select SSI_FRF,     // SSI Frame format
-//                  uint8_t SSI_DS,               // from 4 bit to 16 bit
-//                  Bit_Order bit_order           // LSB or MSB
-//);
-//
-///**
-// * SSI2_B_Init
-// * ----------
-// * @brief initialize SSI2 on Port B with corresponding setting parameters.
-// */
-//void SSI2_B_Init (
-//                  SSI_SS_Mode SSI_SS_mode,      // SS is trigered regularly or by bit banging (GPIO)
-//                  SSI_MS_Mode SSI_ms_mode,      // Master/Slave mode
-//                  uint8_t CPSDVSR,              // must be an even number from 2 to 254
-//                  uint16_t SCR,                 // SSI Serial Clock Rate, a value from 0 to 255
-//                  uint8_t SSI_clk_mode,         // SSI Clock Mode, from 0 to 3
-//                  SSI_Frame_Select SSI_FRF,     // SSI Frame format
-//                  uint8_t SSI_DS,               // from 4 bit to 16 bit
-//                  Bit_Order bit_order           // LSB or MSB
-//);
-//
-///**
-// * SSI3_D_Init
-// * ----------
-// * @brief initialize SSI3 on Port D with corresponding setting parameters.
-// */
-//void SSI3_D_Init (
-//                  SSI_SS_Mode SSI_SS_mode,      // SS is trigered regularly or by bit banging (GPIO)
-//                  SSI_MS_Mode SSI_ms_mode,      // Master/Slave mode
-//                  uint8_t CPSDVSR,              // must be an even number from 2 to 254
-//                  uint16_t SCR,                 // SSI Serial Clock Rate, a value from 0 to 255
-//                  uint8_t SSI_clk_mode,         // SSI Clock Mode, from 0 to 3
-//                  SSI_Frame_Select SSI_FRF,     // SSI Frame format
-//                  uint8_t SSI_DS,               // from 4 bit to 16 bit
-//                  Bit_Order bit_order           // LSB or MSB
-//);
-//
-//
-///**
-// * SSI2_read
-// * ----------
-// * @return: date read from another device.
-// */
-//static uint16_t SSI2_read (void);
-//
-///**
-// * SSI2_write
-// * ----------
-// * @param  data  byte of data to be written.
-// */
-//static void SSI2_write(uint16_t data);
-//
-///**
-// * SSI3_read
-// * ----------
-// * @return: date read from another device.
-// */
-//static uint16_t SSI3_read (void);
-//
-///**
-// * SSI3_write
-// * ----------
-// * @param  data  byte of data to be written.
-// */
-//static void SSI3_write(uint16_t data);
-
+/*
+ *  SSI0 A Conncection | SSI1 D Conncection | SSI1 F Conncection | SSI2 B Conncection | SSI3 D Conncection
+ *  ------------------ | ------------------ | ------------------ | ------------------ | ------------------
+ *  SCK  --------- PA2 | SCK  --------- PD0 | SCK  --------- PF2 | SCK  --------- PB4 | SCK  --------- PD0
+ *  SS   --------- PA3 | SS   --------- PD1 | SS   --------- PF3 | SS   --------- PB5 | SS   --------- PD1
+ *  MISO --------- PA4 | MISO --------- PD2 | MISO --------- PF0 | MISO --------- PB6 | MISO --------- PD2
+ *  MOSI --------- PA5 | MOSI --------- PD3 | MOSI --------- PF1 | MOSI --------- PB7 | MOSI --------- PD3
+ */
+#if 0           // set this to 1 to use SSI0
+    #define SSI0
+#elif 0         // set this to 1 to use SSI1
+    #define SSI1
+    #if 1       // set to 1 for SSI1 on Port D, 0 on Port F
+        #define SSI1D
+    #else       // **WARNING** do not use on board LEDs if you want to use Port F SSI, they overlap
+        #define SSI1F
+    #endif
+#elif 1         // set this to 1 to use SSI2
+    #define SSI2
+#else           // SSI3 if all 0 above
+    #define SSI3
+#endif
 
 /****************************************************
  *                                                  *
@@ -133,17 +47,50 @@ typedef enum {
  * ----------
  * Discription: to output in the order of LSB first, we need to reverse all bits.
  */
-uint16_t reverseBitOrder(uint16_t data, uint8_t size) {
-    uint16_t result = 0;
-    uint16_t bitMask = 0x0001;
-    
-    /* shifting bits */
-    for(int i = 0; i < size; i++) {
-        if (2 * i + 1 < size) result += (data & bitMask) << (size - 2 * i - 1);
-        else if (size == 2 * i + 1) continue;
-        else result += (data & bitMask) >> (2 * i + 1 - size);
-        bitMask <<= 1;
-    }
-    
-    return result;
-}
+static uint8_t reverseBitOrder(uint8_t byte);
+
+/****************************************************
+ *                                                  *
+ *                   SS Functions                   *
+ *                                                  *
+ ****************************************************/
+
+static void SS_HIGH (void);
+
+static void SS_LOW (void);
+
+
+/****************************************************
+ *                                                  *
+ *                   Initializer                    *
+ *                                                  *
+ ****************************************************/
+
+/**
+ * SSI_Init
+ * ----------
+ * @brief initialize SSI with corresponding setting parameters.
+ */
+void SSI_Init();
+
+
+/****************************************************
+ *                                                  *
+ *                   I/O Functions                  *
+ *                                                  *
+ ****************************************************/
+
+/**
+ * SSI_read
+ * ----------
+ * @return date read from slave device.
+ */
+static uint16_t SSI_read (void);
+
+/**
+ * SSI_write
+ * ----------
+ * @param  data  data to be written.
+ */
+static void SSI_write(uint16_t data);
+

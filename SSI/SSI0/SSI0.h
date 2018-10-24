@@ -11,25 +11,21 @@
  * Apr 14, 2018
  */
 
+#ifndef __SSI0_H__
+#define __SSI0_H__
+
+#include <stdint.h>
+
 /**
  * SSI0_A_Init
  * ----------
  * @brief initialize SSI0 on Port A with corresponding setting parameters.
  */
-void SSI0_Init (
-                  SSI_SS_Mode SSI_SS_mode,      // SS is trigered regularly or by bit banging (GPIO)
-                  SSI_MS_Mode SSI_ms_mode,      // Master/Slave mode
-                  uint8_t CPSDVSR,              // must be an even number from 2 to 254
-                  uint16_t SCR,                 // SSI Serial Clock Rate, a value from 0 to 255
-                  uint8_t SSI_clk_mode,         // SSI Clock Mode, from 0 to 3
-                  SSI_Frame_Select SSI_FRF,     // SSI Frame format
-                  uint8_t SSI_DS,               // from 4 bit to 16 bit
-                  Bit_Order bit_order           // LSB or MSB
-);
+void SSI0_Init ();
 
 // for bit banging
-void SS_HIGH (void);
-void SS_LOW (void);
+void SSI0_SS_HIGH (void);
+void SSI0_SS_LOW (void);
 
 /**
  * SSI0_Read
@@ -45,3 +41,4 @@ uint16_t SSI0_read (void);
  */
 void SSI0_write(uint16_t data);
     
+#endif

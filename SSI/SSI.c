@@ -1,15 +1,15 @@
-/*
-  * SSI.c
-  * ----------
-  * Inspired by examples in ValvanoWareTM4C123 by Dr. Jonathan Valvano
-  * as well as his book Embedded Systems: Real-Time Interfacing to Arm Cortex-M Microcontrollers
-  * You can find ValvanoWareTM4C123 at http://edx-org-utaustinx.s3.amazonaws.com/UT601x/ValvanoWareTM4C123.zip?dl=1
-  * You can find his book at https://www.amazon.com/gp/product/1463590156/ref=oh_aui_detailpage_o05_s00?ie=UTF8&psc=1
-  * You can find more of his work at http://users.ece.utexas.edu/~valvano/
-  * ----------
-  * @author Zee Livermorium
-  * @date Apr 14, 2018
-  */
+/*!
+ * SSI.c
+ * ----------
+ * Inspired by examples in ValvanoWareTM4C123 by Dr. Jonathan Valvano
+ * as well as his book Embedded Systems: Real-Time Interfacing to Arm Cortex-M Microcontrollers
+ * You can find ValvanoWareTM4C123 at http://edx-org-utaustinx.s3.amazonaws.com/UT601x/ValvanoWareTM4C123.zip?dl=1
+ * You can find his book at https://www.amazon.com/gp/product/1463590156/ref=oh_aui_detailpage_o05_s00?ie=UTF8&psc=1
+ * You can find more of his work at http://users.ece.utexas.edu/~valvano/
+ * ----------
+ * @author Zee Livermorium
+ * @date Apr 14, 2018
+ */
 
 #include <stdint.h>
 #include <string.h>
@@ -38,15 +38,8 @@
  * ----------
  * Discription: to output in the order of LSB first, we need to reverse all bits.
  */
-static uint8_t reverseBitOrder(uint8_t byte) {
-    return (((byte & 0x01) << 7) +
-            ((byte & 0x02) << 5) +
-            ((byte & 0x04) << 3) +
-            ((byte & 0x08) << 1) +
-            ((byte & 0x10) >> 1) +
-            ((byte & 0x20) >> 3) +
-            ((byte & 0x40) >> 5) +
-            ((byte & 0x80) >> 7));
+static uint16_t reverseBitOrder(uint16_t byte, uint8_t len) {
+    return 
 }
 
 /****************************************************
@@ -92,9 +85,9 @@ static void SS_LOW (void) {
  ****************************************************/
 
 /**
- * SSI0_A_Init
+ * SSI_Init
  * ----------
- * @brief initialize SSI0 on Port A with corresponding setting parameters.
+ * @brief initialize SSI with corresponding setting parameters.
  */
 void SSI_Init() {
 #if defined SSI0
@@ -276,7 +269,7 @@ void SSI_Init() {
  * ----------
  * @return date read from slave device.
  */
-static uint8_t SSI_read (void) {
+static uint16_t SSI_read (void) {
 #if defined SSI0
     while((SSI0_SR_R & SSI_SR_BSY) == SSI_SR_BSY) {};     // wait until SSI0 not busy/transmit FIFO empty
     SSI0_DR_R = 0x00;                                     // data out, garbage, just for synchronization
@@ -305,7 +298,7 @@ static uint8_t SSI_read (void) {
  * ----------
  * @param  data  data to be written.
  */
-static void SSI_write(uint8_t data){
+static void SSI_write(uint16_t data){
 #if defined SSI0
     while ((SSI0_SR_R & SSI_SR_BSY) == SSI_SR_BSY) {};   // wait until SSI1 not busy/transmit FIFO empty
     SSI0_DR_R = data;                                    // write data

@@ -1,35 +1,93 @@
+/*!
+ * SSI1.h
+ * ----------
+ * Inspired by examples in ValvanoWareTM4C123 by Dr. Jonathan Valvano
+ * as well as his book Embedded Systems: Real-Time Interfacing to Arm Cortex-M Microcontrollers
+ * You can find ValvanoWareTM4C123 at http://edx-org-utaustinx.s3.amazonaws.com/UT601x/ValvanoWareTM4C123.zip?dl=1
+ * You can find his book at https://www.amazon.com/gp/product/1463590156/ref=oh_aui_detailpage_o05_s00?ie=UTF8&psc=1
+ * You can find more of his work at http://users.ece.utexas.edu/~valvano/
+ * ----------
+ * @author Zee Livermorium
+ * @date Apr 14, 2018
+ */
 
+#ifndef __SSI1_H__
+#define __SSI1_H__
 
+#include <stdint.h>
 
+/*
+ *  SSI1 D Conncection | SSI1 F Conncection
+ *  ------------------ | ------------------
+ *  SCK  --------- PD0 | SCK  --------- PF2
+ *  SS   --------- PD1 | SS   --------- PF3
+ *  MISO --------- PD2 | MISO --------- PF0
+ *  MOSI --------- PD3 | MOSI --------- PF1
+ */
 
+#if 1       // set to 1 for SSI1 on Port D, 0 on Port F
+    #define SSI1D
+#else       // **WARNING** do not use on board LEDs if you want to use Port F SSI, they overlap
+    #define SSI1F
+#endif
 
+/****************************************************
+ *                                                  *
+ *                 Helper Functions                 *
+ *                                                  *
+ ****************************************************/
 
 /**
- * SSI1_D_Init
+ * reverseBitOrder
  * ----------
- * @brief initialize SSI1 on Port F with corresponding setting parameters.
+ * Discription: to output in the order of LSB first, we need to reverse all bits.
  */
-void SSI1_D_Init (
-                  SSI_SS_Mode SSI_SS_mode,      // SS is trigered regularly or by bit banging (GPIO)
-                  SSI_MS_Mode SSI_ms_mode,      // Master/Slave mode
-                  uint8_t CPSDVSR,              // must be an even number from 2 to 254
-                  uint16_t SCR,                 // SSI Serial Clock Rate, a value from 0 to 255
-                  uint8_t SSI_clk_mode,         // SSI Clock Mode, from 0 to 3
-                  SSI_Frame_Select SSI_FRF,     // SSI Frame format
-                  uint8_t SSI_DS,               // from 4 bit to 16 bit
-                  Bit_Order bit_order           // LSB or MSB
-);
+static uint8_t reverseBitOrder(uint8_t byte);
+
+/****************************************************
+ *                                                  *
+ *                   SS Functions                   *
+ *                                                  *
+ ****************************************************/
+
+static void SS1_SS_HIGH (void);
+
+static void SS1_SS_LOW (void);
+
+
+/****************************************************
+ *                                                  *
+ *                   Initializer                    *
+ *                                                  *
+ ****************************************************/
+
+/**
+ * SSI1_Init
+ * ----------
+ * @brief initialize SSI with corresponding setting parameters.
+ */
+void SSI1_Init();
+
+
+/****************************************************
+ *                                                  *
+ *                   I/O Functions                  *
+ *                                                  *
+ ****************************************************/
 
 /**
  * SSI1_read
  * ----------
- * @return: date read from another device.
+ * @return date read from slave device.
  */
 static uint16_t SSI1_read (void);
 
 /**
  * SSI1_write
  * ----------
- * @param  data  byte of data to be written.
+ * @param  data  data to be written.
  */
 static void SSI1_write(uint16_t data);
+
+#endif
+
