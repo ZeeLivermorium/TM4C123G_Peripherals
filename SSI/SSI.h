@@ -11,6 +11,9 @@
  * @date Apr 14, 2018
  */
 
+#ifndef __SSI_H__
+#define __SSI_H__
+
 #include <stdint.h>
 
 /*
@@ -93,4 +96,6 @@ static uint16_t SSI_read (void);
  * @param  data  data to be written.
  */
 static void SSI_write(uint16_t data);
+
+#endif
 

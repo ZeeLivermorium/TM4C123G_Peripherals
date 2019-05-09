@@ -133,7 +133,7 @@ void SSI1_Init() {
     /* SSI1 Set Up */
     SSI1_CR1_R &= ~SSI_CR1_SSE;                            // disable SSI operation
     SSI1_CR1_R &= ~SSI_CR1_MS;                             // configure SSI1 as master mode
-    SSI1_CPSR_R &= SSI_CPSR_CPSDVSR_M;                     // clear bit fields for SSI Clock Prescale Divisor
+    SSI1_CPSR_R &= ~SSI_CPSR_CPSDVSR_M;                     // clear bit fields for SSI Clock Prescale Divisor
     SSI1_CPSR_R += 40;                                     // /40 clock divisor, 2Mhz
     SSI1_CR0_R &= ~SSI_CR0_SCR_M;                          // clear bit fields for SSI1 Serial Clock Rate, SCR = 0
     SSI1_CR0_R &= ~SSI_CR0_SPO;                            // clear bit fields for SSI1 Serial Clock Polarity, SPO = 0

@@ -98,7 +98,7 @@ void SSI2_Init() {
     /* SSI2 Set Up */
     SSI2_CR1_R &= ~SSI_CR1_SSE;                            // disable SSI operation
     SSI2_CR1_R &= ~SSI_CR1_MS;                             // configure SSI2 as master mode
-    SSI2_CPSR_R &= SSI_CPSR_CPSDVSR_M;                     // clear bit fields for SSI Clock Prescale Divisor
+    SSI2_CPSR_R &= ~SSI_CPSR_CPSDVSR_M;                     // clear bit fields for SSI Clock Prescale Divisor
     SSI2_CPSR_R += 40;                                     // /40 clock divisor, 2Mhz
     SSI2_CR0_R &= ~SSI_CR0_SCR_M;                          // clear bit fields for SSI2 Serial Clock Rate, SCR = 0
     SSI2_CR0_R &= ~SSI_CR0_SPO;                            // clear bit fields for SSI2 Serial Clock Polarity, SPO = 0

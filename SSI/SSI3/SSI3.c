@@ -98,7 +98,7 @@ void SSI3_Init() {
     /* SSI3 Set Up */
     SSI3_CR1_R &= ~SSI_CR1_SSE;                            // disable SSI operation
     SSI3_CR1_R &= ~SSI_CR1_MS;                             // configure SSI3 as master mode
-    SSI3_CPSR_R &= SSI_CPSR_CPSDVSR_M;                     // clear bit fields for SSI Clock Prescale Divisor
+    SSI3_CPSR_R &= ~SSI_CPSR_CPSDVSR_M;                     // clear bit fields for SSI Clock Prescale Divisor
     SSI3_CPSR_R += 40;                                     // /40 clock divisor, 2Mhz
     SSI3_CR0_R &= ~SSI_CR0_SCR_M;                          // clear bit fields for SSI3 Serial Clock Rate, SCR = 0
     SSI3_CR0_R &= ~SSI_CR0_SPO;                            // clear bit fields for SSI3 Serial Clock Polarity, SPO = 0

@@ -175,7 +175,7 @@ void SSI_Init() {
     /* SSI1 Set Up */
     SSI1_CR1_R &= ~SSI_CR1_SSE;                            // disable SSI operation
     SSI1_CR1_R &= ~SSI_CR1_MS;                             // configure SSI1 as master mode
-    SSI1_CPSR_R &= SSI_CPSR_CPSDVSR_M;                     // clear bit fields for SSI Clock Prescale Divisor
+    SSI1_CPSR_R &= ~SSI_CPSR_CPSDVSR_M;                     // clear bit fields for SSI Clock Prescale Divisor
     SSI1_CPSR_R += 40;                                     // /40 clock divisor, 2Mhz
     SSI1_CR0_R &= ~SSI_CR0_SCR_M;                          // clear bit fields for SSI1 Serial Clock Rate, SCR = 0
     SSI1_CR0_R &= ~SSI_CR0_SPO;                            // clear bit fields for SSI1 Serial Clock Polarity, SPO = 0
@@ -209,7 +209,7 @@ void SSI_Init() {
     /* SSI2 Set Up */
     SSI2_CR1_R &= ~SSI_CR1_SSE;                            // disable SSI operation
     SSI2_CR1_R &= ~SSI_CR1_MS;                             // configure SSI2 as master mode
-    SSI2_CPSR_R &= SSI_CPSR_CPSDVSR_M;                     // clear bit fields for SSI Clock Prescale Divisor
+    SSI2_CPSR_R &= ~SSI_CPSR_CPSDVSR_M;                     // clear bit fields for SSI Clock Prescale Divisor
     SSI2_CPSR_R += 40;                                     // /40 clock divisor, 2Mhz
     SSI2_CR0_R &= ~SSI_CR0_SCR_M;                          // clear bit fields for SSI2 Serial Clock Rate, SCR = 0
     SSI2_CR0_R &= ~SSI_CR0_SPO;                            // clear bit fields for SSI2 Serial Clock Polarity, SPO = 0
@@ -243,7 +243,7 @@ void SSI_Init() {
     /* SSI3 Set Up */
     SSI3_CR1_R &= ~SSI_CR1_SSE;                            // disable SSI operation
     SSI3_CR1_R &= ~SSI_CR1_MS;                             // configure SSI3 as master mode
-    SSI3_CPSR_R &= SSI_CPSR_CPSDVSR_M;                     // clear bit fields for SSI Clock Prescale Divisor
+    SSI3_CPSR_R &= ~SSI_CPSR_CPSDVSR_M;                     // clear bit fields for SSI Clock Prescale Divisor
     SSI3_CPSR_R += 40;                                     // /40 clock divisor, 2Mhz
     SSI3_CR0_R &= ~SSI_CR0_SCR_M;                          // clear bit fields for SSI3 Serial Clock Rate, SCR = 0
     SSI3_CR0_R &= ~SSI_CR0_SPO;                            // clear bit fields for SSI3 Serial Clock Polarity, SPO = 0
